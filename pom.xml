@@ -7,7 +7,7 @@
 
   <groupId>team.dedica</groupId>
   <artifactId>config-functions</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>${revision}</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>
@@ -37,8 +37,13 @@
   <properties>
     <java.version>25</java.version>
     <maven.compiler.release>17</maven.compiler.release>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!--
+      Fallback version for local development.
+      "revision" is a special property name, for which Maven does not emit a warning when used in the <version> tag.
+      -->
+    <revision>0.0.1-SNAPSHOT</revision>
 
     <spring-boot.version>3.5.13</spring-boot.version>
   </properties>
