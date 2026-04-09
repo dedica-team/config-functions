@@ -1,11 +1,25 @@
+release:
+  github:
+    enabled: true
+    # We create releases from a Git tag, JReleaser does not have to create it.
+    skipTag: true
+    skipRelease: true
+    token: dummy
+
 signing:
   active: ALWAYS
-  cosign:
+  pgp:
     active: ALWAYS
+    armored: true
+    publicKey: public-dummy
+    secretKey: secret-dummy
+    passphrase: dummy
 
 deploy:
   maven:
     mavenCentral:
       sonatype:
-        active: ALWAYS
+        active: RELEASE
         url: https://central.sonatype.com/api/v1/publisher
+        username: dummy
+        password: dummy
