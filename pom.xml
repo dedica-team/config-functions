@@ -29,10 +29,9 @@
     </developer>
   </developers>
   <scm>
-    <connection/>
-    <developerConnection/>
-    <tag/>
-    <url/>
+    <connection>scm:git:git://github.com:dedica-team/config-functions.git</connection>
+    <developerConnection>scm:git:ssh://github.com:dedica-team/config-functions.git</developerConnection>
+    <url>https://github.com/dedica-team/config-functions</url>
   </scm>
 
   <properties>
