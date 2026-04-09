@@ -14,12 +14,14 @@
     Adds a set of functions, that can be used in the application.yaml of a Spring Boot application.
   </description>
   <inceptionYear>2026</inceptionYear>
-  <url/>
+  <url>https://github.com/dedica-team/config-functions</url>
+
   <licenses>
     <license>
       <name>MIT</name>
     </license>
   </licenses>
+
   <developers>
     <developer>
       <name>dedica GmbH</name>
@@ -28,6 +30,7 @@
       <organizationUrl>https://dedica.team</organizationUrl>
     </developer>
   </developers>
+
   <scm>
     <connection>scm:git:git://github.com:dedica-team/config-functions.git</connection>
     <developerConnection>scm:git:ssh://github.com:dedica-team/config-functions.git</developerConnection>
