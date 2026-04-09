@@ -1,0 +1,2 @@
+# Add support for additional functions in application.yaml.
+org.springframework.boot.env.EnvironmentPostProcessor=team.dedica.config.functions.FunctionsPropertySourceEnvironmentPostProcessor
