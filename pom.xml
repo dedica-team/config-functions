@@ -13,6 +13,7 @@
   <description>
     Adds a set of functions, that can be used in the application.yaml of a Spring Boot application.
   </description>
+  <inceptionYear>2026</inceptionYear>
   <url/>
   <licenses>
     <license>
