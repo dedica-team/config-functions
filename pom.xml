@@ -197,6 +197,7 @@
         <version>1.23.0</version>
         <inherited>false</inherited>
         <configuration>
+          <configFile>jreleaser.yaml</configFile>
           <jreleaser>
             <deploy>
               <maven>
