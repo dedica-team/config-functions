@@ -1,0 +1,11 @@
+signing:
+  active: ALWAYS
+  cosign:
+    active: ALWAYS
+
+deploy:
+  maven:
+    mavenCentral:
+      sonatype:
+        active: ALWAYS
+        url: https://central.sonatype.com/api/v1/publisher

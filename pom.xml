@@ -46,6 +46,9 @@
     <revision>0.0.1-SNAPSHOT</revision>
 
     <spring-boot.version>3.5.13</spring-boot.version>
+
+    <!-- Prepare deployment artifacts here, before sending them to Maven Central. -->
+    <staging.dir>${project.build.directory}/staging-deploy</staging.dir>
   </properties>
 
   <dependencies>
@@ -92,6 +95,13 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>staging</id>
+      <url>file:${staging.dir}</url>
+    </repository>
+  </distributionManagement>
 
   <build>
     <plugins>
@@ -175,6 +185,26 @@
             <goals><goal>jar</goal></goals>
           </execution>
         </executions>
+      </plugin>
+
+      <!-- JReleaser is used to publish Jars on Maven Central. -->
+      <plugin>
+        <groupId>org.jreleaser</groupId>
+        <artifactId>jreleaser-maven-plugin</artifactId>
+        <version>1.17.0</version>
+        <configuration>
+          <jreleaser>
+            <deploy>
+              <maven>
+                <mavenCentral>
+                  <sonatype>
+                    <stagingRepositories>${staging.dir}</stagingRepositories>
+                  </sonatype>
+                </mavenCentral>
+              </maven>
+            </deploy>
+          </jreleaser>
+        </configuration>
       </plugin>
     </plugins>
   </build>
