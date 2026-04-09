@@ -49,9 +49,6 @@
     <revision>0.0.1-SNAPSHOT</revision>
 
     <spring-boot.version>3.5.13</spring-boot.version>
-
-    <!-- Prepare deployment artifacts here, before sending them to Maven Central. -->
-    <staging.dir>${project.build.directory}/staging-deploy</staging.dir>
   </properties>
 
   <dependencies>
@@ -102,7 +99,8 @@
   <distributionManagement>
     <repository>
       <id>staging</id>
-      <url>file:${staging.dir}</url>
+      <!-- Prepare deployment artifacts here, before sending them to Maven Central. -->
+      <url>file:${project.build.directory}/staging-deploy</url>
     </repository>
   </distributionManagement>
 
@@ -198,17 +196,6 @@
         <inherited>false</inherited>
         <configuration>
           <configFile>jreleaser.yaml</configFile>
-          <jreleaser>
-            <deploy>
-              <maven>
-                <mavenCentral>
-                  <sonatype>
-                    <stagingRepositories>${staging.dir}</stagingRepositories>
-                  </sonatype>
-                </mavenCentral>
-              </maven>
-            </deploy>
-          </jreleaser>
         </configuration>
       </plugin>
     </plugins>

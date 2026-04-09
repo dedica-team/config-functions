@@ -21,5 +21,7 @@ deploy:
       sonatype:
         active: RELEASE
         url: https://central.sonatype.com/api/v1/publisher
+        stagingRepositories:
+          - target/staging-deploy
         username: dummy
         password: dummy
