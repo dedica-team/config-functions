@@ -1,0 +1,9 @@
+# Enable auto-env through the sdkman_auto_env config
+#
+# Activate correct version via:
+#
+#     sdk env install
+#     sdk env
+#
+# Add key=value pairs of SDKs to use below
+java=25.0.2-tem
