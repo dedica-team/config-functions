@@ -120,6 +120,62 @@
           <argLine>-Xshare:off -javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
       </plugin>
+
+      <!--
+        Ensures that the version property is resolved in the pom.xml that will be published.
+        This is necessary to publish releases on Maven Central.
+        -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <configuration>
+          <updatePomFile>true</updatePomFile>
+          <flattenMode>resolveCiFriendliesOnly</flattenMode>
+        </configuration>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals><goal>flatten</goal></goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals><goal>clean</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Sources JAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals><goal>jar-no-fork</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Javadoc JAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.11.2</version>
+        <configuration>
+          <!-- Do not emit warnings when a doc block is missing, otherwise each public class/method would always require documentation. -->
+          <doclint>all,-missing</doclint>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals><goal>jar</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
