@@ -82,10 +82,14 @@ public class FunctionsPropertySource extends PropertySource<Object> {
         "firstNonEmpty", this::firstNonEmpty
     );
 
+    /// Creates the source with the default name ([#FUNCTIONS_PROPERTY_SOURCE_NAME]).
     public FunctionsPropertySource() {
         this(FUNCTIONS_PROPERTY_SOURCE_NAME);
     }
 
+    /// Creates the source with the provided `name`.
+    ///
+    /// @param name The name of the property source.
     public FunctionsPropertySource(@Nonnull final String name) {
         super(Objects.requireNonNull(name, "name"), new Object());
     }
