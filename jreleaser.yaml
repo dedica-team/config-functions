@@ -1,27 +1,23 @@
 release:
+  # GitHub token must be provided via JRELEASER_GITHUB_TOKEN env var
   github:
     enabled: true
     # We create releases from a Git tag, JReleaser does not have to create it.
     skipTag: true
     skipRelease: true
-    token: dummy
 
 signing:
   active: ALWAYS
   pgp:
     active: ALWAYS
     armored: true
-    publicKey: public-dummy
-    secretKey: secret-dummy
-    passphrase: dummy
 
 deploy:
   maven:
     mavenCentral:
+      # Credentials must be provided via JRELEASER_MAVENCENTRAL_SONATYPE_USERNAME / JRELEASER_MAVENCENTRAL_SONATYPE_PASSWORD env vars
       sonatype:
         active: RELEASE
         url: https://central.sonatype.com/api/v1/publisher
         stagingRepositories:
           - target/staging-deploy
-        username: dummy
-        password: dummy
