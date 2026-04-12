@@ -1,0 +1,41 @@
+name: 'Build Jar'
+description: 'Sets up Java and builds a Jar file'
+
+inputs:
+  run-tests:
+    description: 'Execute tests?'
+    required: true
+    default: 'true'
+
+  # Allows to filter tests by tags.
+  #
+  # Details:
+  # - https://docs.junit.org/current/user-guide/#running-tests-tag-expressions
+  included-tags:
+    description: 'Tag expression that defines, which tests will be included.'
+    required: false
+    # Include all tests per default (untagged tests as well as tests with any tag).
+    default: 'none() | any()'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up JDK 25
+      uses: actions/setup-java@v5.2.0
+      with:
+        java-version: "25"
+        distribution: "temurin"
+        cache: maven
+    - name: Build with Maven
+      env:
+        # Do not log dependency downloads.
+        # These are common as the runner might run on a node with empty local Maven repository.
+        # References:
+        # - https://blogs.itemis.com/en/in-a-nutshell-removing-artifact-messages-from-maven-log-output
+        # - https://maven.apache.org/ref/3.6.1/maven-embedder/cli.html
+        MAVEN_ARGUMENTS: "--batch-mode --no-transfer-progress"
+        # Derive the "skipTests" parameter from the "run-tests" input.
+        SKIP_TESTS: "${{ inputs.run-tests != 'true' && 'true' || 'false' }}"
+        TEST_GROUPS: "${{ inputs.included-tags }}"
+      run: "./mvnw ${MAVEN_ARGUMENTS} -DskipTests=${SKIP_TESTS} \"-Dgroups=${TEST_GROUPS}\" package"
+      shell: sh

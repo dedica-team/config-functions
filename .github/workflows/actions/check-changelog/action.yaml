@@ -1,0 +1,34 @@
+name: 'Check Changelog'
+description: 'Ensures that the changelog has been updated'
+
+inputs:
+  changelog-file:
+    description: 'Path to the changelog file.'
+    required: false
+    default: 'CHANGELOG.md'
+  skip-label:
+    description: 'Label that can be added to a Pull Request to skip the changelog check.'
+    required: false
+    default: 'skip changelog check'
+
+runs:
+  using: "composite"
+  steps:
+    # Determines, which files have been changed in the Pull Request.
+    # Details: https://github.com/marketplace/actions/changed-files
+    - name: 'Get changed files'
+      id: 'changed-files'
+      uses: 'tj-actions/changed-files@v47.0.5'
+      with:
+        files_yaml: |
+          changelog:
+            - '${{ inputs.changelog-file }}'
+
+    - name: 'Fail, if changelog has not been updated'
+      env:
+        HAS_SKIP_LABEL: "${{ contains(github.event.pull_request.labels.*.name, inputs.skip-label) }}"
+        CHANGELOG_UPDATED: "${{ steps.changed-files.outputs.changelog_any_changed }}"
+        CHANGELOG_FILE: "${{ inputs.changelog-file }}"
+        SKIP_LABEL: "${{ inputs.skip-label }}"
+      run: "${{ github.action_path }}/check-changelog.sh"
+      shell: sh
