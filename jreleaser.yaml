@@ -22,3 +22,4 @@ deploy:
         stagingRepositories:
           - target/staging-deploy
         snapshotSupported: false
+        stage: UPLOAD
