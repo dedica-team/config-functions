@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v6.0.2
 
       - name: Build Jar
-        uses: ./.github/workflows/actions/build-jar
+        uses: ./.github/workflows/actions/run-maven
         with:
           run-tests: 'true'
 
