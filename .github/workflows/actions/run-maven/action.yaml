@@ -2,11 +2,14 @@ name: 'Build Jar'
 description: 'Sets up Java and builds a Jar file'
 
 inputs:
+  phase:
+    description: 'Which Maven phase should be invoked?'
+    required: true
+    default: 'verify'
   run-tests:
     description: 'Execute tests?'
     required: true
     default: 'true'
-
   # Allows to filter tests by tags.
   #
   # Details:
@@ -37,5 +40,6 @@ runs:
         # Derive the "skipTests" parameter from the "run-tests" input.
         SKIP_TESTS: "${{ inputs.run-tests != 'true' && 'true' || 'false' }}"
         TEST_GROUPS: "${{ inputs.included-tags }}"
-      run: "./mvnw ${MAVEN_ARGUMENTS} -DskipTests=${SKIP_TESTS} \"-Dgroups=${TEST_GROUPS}\" package"
+        PHASE: "${{ inputs.phase }}"
+      run: "./mvnw ${MAVEN_ARGUMENTS} -DskipTests=${SKIP_TESTS} \"-Dgroups=${TEST_GROUPS}\" ${PHASE}"
       shell: sh
