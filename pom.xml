@@ -195,7 +195,7 @@
         <version>1.23.0</version>
         <inherited>false</inherited>
         <configuration>
-          <configFile>jreleaser.yaml</configFile>
+          <configFile>jreleaser.yml</configFile>
         </configuration>
       </plugin>
     </plugins>
