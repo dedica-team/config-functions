@@ -16,7 +16,7 @@ on:
   pull_request:
     branches: ["main"]
 
-# Cancel CI runs for previous commits, when a newer version is pushed.defaults:
+# Cancel CI runs for previous commits, when a newer version is pushed.
 #
 # This helps us to reduce costs, as GitHub Actions are paid per minute.
 #
