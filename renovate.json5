@@ -1,6 +1,36 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    // No commits like "chore(deps): [...]"
+    ":semanticCommitsDisabled"
+  ],
+
+  // Do not limit the number of dependency update Pull Requests.
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
+
+  "labels": [
+    "Dependencies",
+    "skip changelog check"
+  ],
+
+  "customManagers": [
+    // Update Java version references in SDKMan config file (.sdkmanrc).
+    // Details: https://www.innoq.com/en/articles/2024/05/renovate/#supportforjbangsdkmanandthefrontend-maven-plugin
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "^\\.sdkmanrc$"
+      ],
+      "matchStrings": [
+        "java=(?<currentValue>.*)\\n"
+      ],
+      "datasourceTemplate": "java-version",
+      "depNameTemplate": "java"
+    }
+  ],
+
+  "packageRules": [
   ]
 }
