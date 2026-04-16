@@ -22,6 +22,9 @@ jobs:
     runs-on: ubuntu-24.04
     # Secrets for this environment will be used.
     environment: release
+    permissions:
+      # Restrict GitHub token in this workflow to minimal permissions required to create releases.
+      contents: write
     steps:
       - uses: actions/checkout@v6.0.2
 
