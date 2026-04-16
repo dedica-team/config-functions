@@ -46,5 +46,5 @@ runs:
         TEST_GROUPS: "${{ inputs.included-tags }}"
         PHASE: "${{ inputs.phase }}"
         ADDITIONAL_ARGUMENTS: "${{ inputs.additional-arguments }}"
-      run: "./mvnw ${MAVEN_ARGUMENTS} -DskipTests=${SKIP_TESTS} \"-Dgroups=${TEST_GROUPS}\" ${EXTRA_ARGS} ${PHASE}"
+      run: "./mvnw ${MAVEN_ARGUMENTS} -DskipTests=${SKIP_TESTS} \"-Dgroups=${TEST_GROUPS}\" ${ADDITIONAL_ARGUMENTS} ${PHASE}"
       shell: sh
