@@ -4,7 +4,11 @@ release:
     enabled: true
     # We create releases from a Git tag, JReleaser does not have to create it.
     skipTag: true
-    skipRelease: true
+    skipRelease: false
+    changelog:
+      enabled: true
+      # Changes for a specific release are extracted from CHANGELOG.md.
+      external: "RELEASE_NOTES.md"
 
 signing:
   active: ALWAYS
