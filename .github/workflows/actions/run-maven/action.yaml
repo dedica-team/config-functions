@@ -3,7 +3,7 @@ description: 'Sets up Java and builds a Jar file'
 
 inputs:
   phase:
-    description: 'Which Maven phase (or goal) should be invoked?'
+    description: 'Which Maven phase (or goal) should be invoked? Multiple phases can be passed as space separated list.'
     required: true
     default: 'verify'
   run-tests:
