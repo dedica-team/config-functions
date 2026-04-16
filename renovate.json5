@@ -32,5 +32,11 @@
   ],
 
   "packageRules": [
+    {
+      "matchPackageNames": ["org.springframework.boot:spring-boot-dependencies"],
+      // Although config-functions might work with Spring Boot 4, it is currently
+      // developed for and tested with Spring Boot 3.
+      "allowedVersions": "<4.0",
+    }
   ]
 }
