@@ -5,6 +5,7 @@ release:
     # We create releases from a Git tag, JReleaser does not have to create it.
     skipTag: true
     skipRelease: false
+    releaseName: "{{projectVersion}}"
     # Update GitHub releases, if they already exist.
     update:
       enabled: true
