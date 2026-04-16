@@ -7,8 +7,19 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g. 1.0.0)'
+        description: 'Version to release (e.g. 1.0.0).'
         required: true
+      type:
+        description: 'The release type to execute.'
+        type: choice
+        default: 'full-release'
+        options:
+          # Only deploy to Maven Central.
+          - 'deploy'
+          # Only create the GitHub release.
+          - 'release'
+          # Deploy to Maven Central, create the GitHub release etc.
+          - 'full-release'
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
@@ -41,7 +52,7 @@ jobs:
           run-tests: 'true'
           additional-arguments: '-Drevision=${{ env.VERSION }}'
 
-      - name: Publish on Maven Central
+      - name: Publish release
         uses: ./.github/workflows/actions/run-maven
         env:
           JRELEASER_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
@@ -51,7 +62,7 @@ jobs:
           JRELEASER_MAVENCENTRAL_SONATYPE_USERNAME: "${{ secrets.JRELEASER_MAVENCENTRAL_SONATYPE_USERNAME }}"
           JRELEASER_MAVENCENTRAL_SONATYPE_PASSWORD: "${{ secrets.JRELEASER_MAVENCENTRAL_SONATYPE_PASSWORD }}"
         with:
-          phase: jreleaser:full-release
+          phase: "jreleaser:${{ inputs.type || 'full-release' }}"
           run-tests: 'false'
           additional-arguments: '-Drevision="${{ env.VERSION }}"'
 
