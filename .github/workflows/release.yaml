@@ -64,5 +64,5 @@ jobs:
         with:
           phase: "jreleaser:${{ inputs.type || 'full-release' }}"
           run-tests: 'false'
-          additional-arguments: '-Drevision="${{ env.VERSION }}"'
+          additional-arguments: '-Drevision=${{ env.VERSION }}'
 
