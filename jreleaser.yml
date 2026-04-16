@@ -5,6 +5,13 @@ release:
     # We create releases from a Git tag, JReleaser does not have to create it.
     skipTag: true
     skipRelease: false
+    # Update GitHub releases, if they already exist.
+    update:
+      enabled: true
+    milestone:
+      close: false
+    issues:
+      enabled: false
     changelog:
       enabled: true
       # Changes for a specific release are extracted from CHANGELOG.md.
