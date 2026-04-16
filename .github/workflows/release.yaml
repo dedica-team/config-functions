@@ -20,6 +20,8 @@ env:
 jobs:
   release:
     runs-on: ubuntu-24.04
+    # Secrets for this environment will be used.
+    environment: release
     steps:
       - uses: actions/checkout@v6.0.2
 
