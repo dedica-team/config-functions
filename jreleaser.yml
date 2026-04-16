@@ -9,6 +9,10 @@ release:
     # Update GitHub releases, if they already exist.
     update:
       enabled: true
+      sections:
+        - TITLE
+        - BODY
+        - ASSETS
     milestone:
       close: false
     issues:
