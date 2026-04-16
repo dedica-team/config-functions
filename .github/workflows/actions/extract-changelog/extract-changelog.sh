@@ -17,6 +17,9 @@ if [ ! -f "${CHANGELOG}" ]; then
   exit 1
 fi
 
-sed -n "/^## .*${VERSION}/,/^## /{ /^## .*${VERSION}/{ s/^## .* \(${VERSION}\)/## \1/; p; }; /^## /!p; }" "${CHANGELOG}" | sed 's/^##/#/' > "${TARGET_FILE}"
+# Extract the block with the change description (without headline) from the changelog.
+# Then reduce the headline level in that block, as they usually appear under the
+# "Changelog" top-level and "release name" sub-level heading.
+sed -n "/^## .*${VERSION}/,/^## /{ /^## .*${VERSION}/!{ /^## /!p; }; }" "${CHANGELOG}" | sed 's/^###/#/' > "${TARGET_FILE}"
 
 echo "Extracted changes for version '${VERSION}' from '${CHANGELOG}' and copied these into '${TARGET_FILE}'."
