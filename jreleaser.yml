@@ -22,4 +22,7 @@ deploy:
         stagingRepositories:
           - target/staging-deploy
         snapshotSupported: false
+        # UPLOAD: Only upload a new release, must be published manually.
+        # PUBLISH: Publish an already uploaded release (Deployment-ID is required for this).
+        # FULL: Upload and immediately publish a release.
         stage: UPLOAD
