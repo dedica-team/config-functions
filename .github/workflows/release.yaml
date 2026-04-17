@@ -60,7 +60,7 @@ jobs:
           JRELEASER_GPG_SECRET_KEY: "${{ secrets.JRELEASER_GPG_SECRET_KEY }}"
           JRELEASER_GPG_PASSPHRASE: "${{ secrets.JRELEASER_GPG_PASSPHRASE }}"
           JRELEASER_MAVENCENTRAL_USERNAME: "${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}"
-          JRELEASER_MAVENCENTRAL_PASSWORD: "${{ secrets.JRELEASER_MAVENCENTRAL_PASSWORD }}"
+          JRELEASER_MAVENCENTRAL_TOKEN: "${{ secrets.JRELEASER_MAVENCENTRAL_TOKEN }}"
         with:
           phase: "jreleaser:${{ inputs.type || 'full-release' }}"
           run-tests: 'false'
