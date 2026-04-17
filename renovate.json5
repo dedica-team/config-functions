@@ -32,6 +32,26 @@
       "datasourceTemplate": "java-version",
       "depNameTemplate": "java",
       "extractVersionTemplate": "^(?<version>\\d+\\.\\d+\\.\\d+)"
+    },
+
+    // Update Maven dependency version examples in README code blocks:
+    // ```xml
+    // <dependency>
+    //    <groupId>team.dedica</groupId>
+    //    <artifactId>config-functions</artifactId>
+    //    <version>1.2.3</version>
+    // </dependency>
+    // ```
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/README\\.md$/"
+      ],
+      "matchStrings": [
+        "```xml\\n[\\s\\S]*?<groupId>(?<groupId>.*?)</groupId>\\s*<artifactId>(?<artifactId>.*?)</artifactId>\\s*<version>(?<currentValue>.*?)</version>[\\s\\S]*?```"
+      ],
+      "datasourceTemplate": "maven",
+      "depNameTemplate": "{{groupId}}:{{artifactId}}"
     }
   ],
 
