@@ -10,9 +10,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class FunctionsPropertySourceTest {
 
-    /**
-     * System under test.
-     */
+    /// System under test.
     private FunctionsPropertySource functionsPropertySource;
 
     @BeforeEach

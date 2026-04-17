@@ -11,9 +11,7 @@ import static org.mockito.Mockito.mock;
 
 class FunctionsPropertySourceEnvironmentPostProcessorTest {
 
-    /**
-     * System under test.
-     */
+    /// System under test.
     private FunctionsPropertySourceEnvironmentPostProcessor processor;
 
     @BeforeEach
