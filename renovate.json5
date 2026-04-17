@@ -17,17 +17,21 @@
 
   "customManagers": [
     // Update Java version references in SDKMan config file (.sdkmanrc).
-    // Details: https://www.innoq.com/en/articles/2024/05/renovate/#supportforjbangsdkmanandthefrontend-maven-plugin
+    // Details:
+    // - https://www.innoq.com/en/articles/2024/05/renovate/#supportforjbangsdkmanandthefrontend-maven-plugin
+    // - https://github.com/renovatebot/renovate/discussions/18835
     {
       "customType": "regex",
       "managerFilePatterns": [
         "^\\.sdkmanrc$"
       ],
       "matchStrings": [
-        "java=(?<currentValue>.*)\\n"
+        "java=(?<currentValue>\\d+\\.\\d+\\.\\d+)(?<suffix>-.*)\\n"
       ],
+      "autoReplaceStringTemplate": "java={{{newValue}}}{{{suffix}}}\n",
       "datasourceTemplate": "java-version",
-      "depNameTemplate": "java"
+      "depNameTemplate": "java",
+      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+\\.\\d+)"
     }
   ],
 
