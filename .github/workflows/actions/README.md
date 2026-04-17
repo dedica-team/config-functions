@@ -9,7 +9,7 @@ They are referenced as steps:
 steps:
   # [...]
   - name: Build Jar
-    uses: ./.github/workflows/actions/build-jar
+    uses: ./.github/workflows/actions/run-maven
 ```
 
 Further information:
