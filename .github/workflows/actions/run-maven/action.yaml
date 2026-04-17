@@ -3,7 +3,7 @@ description: 'Sets up Java and builds a Jar file'
 
 inputs:
   phase:
-    description: 'Which Maven phase should be invoked?'
+    description: 'Which Maven phase (or goal) should be invoked? Multiple phases can be passed as space separated list.'
     required: true
     default: 'verify'
   run-tests:
@@ -19,6 +19,10 @@ inputs:
     required: false
     # Include all tests per default (untagged tests as well as tests with any tag).
     default: 'none() | any()'
+  additional-arguments:
+    description: 'Additional arguments to pass to Maven.'
+    required: false
+    default: ''
 
 runs:
   using: "composite"
@@ -41,5 +45,6 @@ runs:
         SKIP_TESTS: "${{ inputs.run-tests != 'true' && 'true' || 'false' }}"
         TEST_GROUPS: "${{ inputs.included-tags }}"
         PHASE: "${{ inputs.phase }}"
-      run: "./mvnw ${MAVEN_ARGUMENTS} -DskipTests=${SKIP_TESTS} \"-Dgroups=${TEST_GROUPS}\" ${PHASE}"
+        ADDITIONAL_ARGUMENTS: "${{ inputs.additional-arguments }}"
+      run: "./mvnw ${MAVEN_ARGUMENTS} -DskipTests=${SKIP_TESTS} \"-Dgroups=${TEST_GROUPS}\" ${ADDITIONAL_ARGUMENTS} ${PHASE}"
       shell: sh

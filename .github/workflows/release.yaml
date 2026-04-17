@@ -1,0 +1,68 @@
+name: Release new version
+
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g. 1.0.0).'
+        required: true
+      type:
+        description: 'The release type to execute.'
+        type: choice
+        default: 'full-release'
+        options:
+          # Only deploy to Maven Central.
+          - 'deploy'
+          # Only create the GitHub release.
+          - 'release'
+          # Deploy to Maven Central, create the GitHub release etc.
+          - 'full-release'
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: false
+
+env:
+  VERSION: "${{ inputs.version || github.ref_name }}"
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    # Secrets for this environment will be used.
+    environment: release
+    permissions:
+      # Restrict GitHub token in this workflow to minimal permissions required to create releases.
+      contents: write
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - name: Extract release notes
+        uses: ./.github/workflows/actions/extract-changelog
+        with:
+          version: "${{ env.VERSION }}"
+          target-file: RELEASE_NOTES.md
+
+      - name: Prepare Jars for publication
+        uses: ./.github/workflows/actions/run-maven
+        with:
+          phase: 'clean deploy'
+          run-tests: 'true'
+          additional-arguments: '-Drevision=${{ env.VERSION }}'
+
+      - name: Publish release
+        uses: ./.github/workflows/actions/run-maven
+        env:
+          JRELEASER_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          JRELEASER_GPG_PUBLIC_KEY: "${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}"
+          JRELEASER_GPG_SECRET_KEY: "${{ secrets.JRELEASER_GPG_SECRET_KEY }}"
+          JRELEASER_GPG_PASSPHRASE: "${{ secrets.JRELEASER_GPG_PASSPHRASE }}"
+          JRELEASER_MAVENCENTRAL_SONATYPE_USERNAME: "${{ secrets.JRELEASER_MAVENCENTRAL_SONATYPE_USERNAME }}"
+          JRELEASER_MAVENCENTRAL_SONATYPE_PASSWORD: "${{ secrets.JRELEASER_MAVENCENTRAL_SONATYPE_PASSWORD }}"
+        with:
+          phase: "jreleaser:${{ inputs.type || 'full-release' }}"
+          run-tests: 'false'
+          additional-arguments: '-Drevision=${{ env.VERSION }}'
+

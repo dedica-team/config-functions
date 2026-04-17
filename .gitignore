@@ -12,6 +12,9 @@
 # Processed pom.xml.
 /.flattened-pom.xml
 
+# Automatically generated on release.
+/RELEASE_NOTES.md
+
 # Maven and build files
 target/
 !.mvn/wrapper/maven-wrapper.jar

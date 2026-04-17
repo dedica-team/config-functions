@@ -1,0 +1,26 @@
+name: 'Extract changes from changelog'
+description: 'Extracts the part of a changelog for a specific release version'
+
+inputs:
+  changelog-file:
+    description: 'Path to the changelog file.'
+    required: false
+    default: 'CHANGELOG.md'
+  version:
+    description: 'The version whose changes should be extracted from the changelog, e.g. "1.0.0".'
+    required: true
+  target-file:
+    description: 'File where the extracted part of the changelog will be saved.'
+    required: false
+    default: 'RELEASE-NOTES.md'
+
+runs:
+  using: "composite"
+  steps:
+    - name: 'Extract changes from changelog'
+      env:
+        CHANGELOG_FILE: "${{ inputs.changelog-file }}"
+        VERSION: "${{ inputs.version }}"
+        TARGET_FILE: "${{ inputs.target-file }}"
+      run: "${{ github.action_path }}/extract-changelog.sh"
+      shell: sh
