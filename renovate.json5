@@ -23,7 +23,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "^\\.sdkmanrc$"
+        "/^\\.sdkmanrc$/"
       ],
       "matchStrings": [
         "java=(?<currentValue>\\d+\\.\\d+\\.\\d+)(?<suffix>-.*)\\n"
