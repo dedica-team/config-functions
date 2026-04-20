@@ -13,6 +13,12 @@ interface ConfigFunction {
     Object call(@Nonnull String argumentLine);
 
     /// The name of the function, which is used to reference it from config files.
+    ///
+    /// Per deafult, the name is derived from the class name:
+    /// - The "Function"-Suffix (if it exists) is removed.
+    /// - The first character is lower-cased.
+    ///
+    /// For more complex function name requirements, this method should be overridden.
     default String name() {
         String functionName = getClass().getSimpleName();
 
