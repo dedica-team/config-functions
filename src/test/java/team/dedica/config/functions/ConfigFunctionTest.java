@@ -1,10 +1,10 @@
 package team.dedica.config.functions;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,7 +48,7 @@ class ConfigFunctionTest {
             private static class Greet implements ConfigFunction {
                 @Nullable
                 @Override
-                public Object call(@NonNull final String argumentLine) {
+                public Object call(@Nonnull final String argumentLine) {
                     return "Greetings!";
                 }
             }
@@ -57,7 +57,7 @@ class ConfigFunctionTest {
 
                 @Nullable
                 @Override
-                public Object call(@NonNull final String argumentLine) {
+                public Object call(@Nonnull final String argumentLine) {
                     return "Hello!";
                 }
             }
@@ -72,7 +72,7 @@ class ConfigFunctionTest {
             final ConfigFunction anonymousFunction = new ConfigFunction() {
                 @Nullable
                 @Override
-                public Object call(@NonNull final String argumentLine) {
+                public Object call(@Nonnull final String argumentLine) {
                     return null;
                 }
 

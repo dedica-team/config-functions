@@ -1,7 +1,7 @@
 package team.dedica.config.functions;
 
 import jakarta.annotation.Nonnull;
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import java.util.stream.Stream;
 
