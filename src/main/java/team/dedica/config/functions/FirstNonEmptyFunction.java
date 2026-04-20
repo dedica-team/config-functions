@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 ///     release-version: "${fn.firstNonEmpty(${git.tags:}, ${git.commit.id.abbrev:}, unknown)}"
 /// ```
 /// In the example above, "unknown" is returned if no further suitable release version can be resolved.
-public class FirstNonEmptyFunction implements ConfigFunction {
+class FirstNonEmptyFunction implements ConfigFunction {
 
     @Nullable
     @Override
