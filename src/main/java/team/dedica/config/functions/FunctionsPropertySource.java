@@ -55,7 +55,8 @@ public class FunctionsPropertySource extends PropertySource<Object> {
     /// of the function call.
     @Nonnull
     private final Map<String, ConfigFunction> functions = register(
-        new FirstNonEmptyFunction()
+        new FirstNonEmptyFunction(),
+        new RequireResolvedFunction()
     );
 
     /// Makes the given [config functions][ConfigFunction] available.
