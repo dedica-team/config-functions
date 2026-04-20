@@ -14,7 +14,7 @@ interface ConfigFunction {
 
     /// The name of the function, which is used to reference it from config files.
     ///
-    /// Per deafult, the name is derived from the class name:
+    /// Per default, the name is derived from the class name:
     /// - The "Function"-Suffix (if it exists) is removed.
     /// - The first character is lower-cased.
     ///
