@@ -4,14 +4,15 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import org.springframework.core.env.PropertySource;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
-/// Adds support for simple calls to prepared functions in application.yaml configuration files.
+/// Adds support for simple calls to prepared functions in `application.yaml` configuration files.
 ///
 /// Function calls are prefixed with `fn.` and can be used like properties in the `application.yaml`
 /// config file:
@@ -23,33 +24,8 @@ import java.util.stream.Stream;
 ///     my-property: "${fn.functionName(${spring.application.name})}"
 /// ```
 ///
-/// # firstNonEmpty()
-///
-/// This function accepts a comma separated list of string and returns the first one
-/// that is not blank.
-///
-/// The following call returns "a":
-/// ```yaml
-///     my-property: "${fn.firstNonEmpty(,a,b)}"
-/// ```
-///
-/// The function is useful when combined with other properties that may
-/// be resolved to empty strings:
-/// ```yaml
-///     release-version: "${fn.firstNonEmpty(${git.tags:}, ${git.commit.id.abbrev:})}"
-/// ```
-///
-/// Do not forget to define fallback values (via ":") for properties that may not exist
-/// at all.
-/// Otherwise, these properties will not be replaced at all when they are missing, which
-/// leads to a placeholder string that is considered "non-empty" and returned.
-///
-/// If all arguments are empty, then firstNonEmpty() will not be resolved at all.
-/// To avoid that, add a fallback value to the end:
-/// ```yaml
-///     release-version: "${fn.firstNonEmpty(${git.tags:}, ${git.commit.id.abbrev:}, unknown)}"
-/// ```
-/// In the example above, "unknown" is returned if no further suitable release version can be resolved.
+/// @see #functions
+/// @see ConfigFunction
 public class FunctionsPropertySource extends PropertySource<Object> {
 
     /// Name of the [PropertySource].
@@ -75,12 +51,22 @@ public class FunctionsPropertySource extends PropertySource<Object> {
     /// Contains all supported functions.
     ///
     /// The key is the name of the function (without prefix) that can be used in the config file.
-    /// The value is a lambda function that receives the argument line and returns the result
+    /// The value is a [ConfigFunction] that receives the argument line and returns the result
     /// of the function call.
     @Nonnull
-    private final Map<String, Function<String, Object>> functions = Map.of(
-        "firstNonEmpty", this::firstNonEmpty
+    private final Map<String, ConfigFunction> functions = register(
+        new FirstNonEmptyFunction()
     );
+
+    /// Makes the given [config functions][ConfigFunction] available.
+    @Nonnull
+    private static Map<String, ConfigFunction> register(@Nonnull final ConfigFunction... functions) {
+        return Arrays.stream(functions)
+            .collect(Collectors.toUnmodifiableMap(
+                ConfigFunction::name,
+                Function.identity()
+            ));
+    }
 
     /// Creates the source with the default name ([#FUNCTIONS_PROPERTY_SOURCE_NAME]).
     public FunctionsPropertySource() {
@@ -133,15 +119,6 @@ public class FunctionsPropertySource extends PropertySource<Object> {
         }
 
         final String arguments = matcher.group(GROUP_ARGUMENTS);
-        return functions.get(functionName).apply(arguments);
-    }
-
-    @Nullable
-    private String firstNonEmpty(@Nonnull final String arguments) {
-        return Stream.of(arguments.split(","))
-            .map(String::trim)
-            .filter(argument -> !argument.isBlank())
-            .findFirst()
-            .orElse(null);
+        return functions.get(functionName).call(arguments);
     }
 }
