@@ -1,6 +1,6 @@
 package team.dedica.config.functions;
 
-import org.springframework.lang.NonNull;
+import jakarta.annotation.Nonnull;
 import org.springframework.lang.Nullable;
 
 import java.util.stream.Stream;
@@ -36,7 +36,7 @@ class FirstNonEmptyFunction implements ConfigFunction {
 
     @Nullable
     @Override
-    public String call(@NonNull final String argumentLine) {
+    public String call(@Nonnull final String argumentLine) {
         return Stream.of(argumentLine.split(","))
             .map(String::trim)
             .filter(argument -> !argument.isBlank())
