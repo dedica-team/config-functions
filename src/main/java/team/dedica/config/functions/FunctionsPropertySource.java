@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-/// Adds support for simple calls to prepared functions in application.yaml configuration files.
+/// Adds support for simple calls to prepared functions in `application.yaml` configuration files.
 ///
 /// Function calls are prefixed with `fn.` and can be used like properties in the `application.yaml`
 /// config file:
@@ -23,33 +23,8 @@ import java.util.stream.Collectors;
 ///     my-property: "${fn.functionName(${spring.application.name})}"
 /// ```
 ///
-/// # firstNonEmpty()
-///
-/// This function accepts a comma separated list of string and returns the first one
-/// that is not blank.
-///
-/// The following call returns "a":
-/// ```yaml
-///     my-property: "${fn.firstNonEmpty(,a,b)}"
-/// ```
-///
-/// The function is useful when combined with other properties that may
-/// be resolved to empty strings:
-/// ```yaml
-///     release-version: "${fn.firstNonEmpty(${git.tags:}, ${git.commit.id.abbrev:})}"
-/// ```
-///
-/// Do not forget to define fallback values (via ":") for properties that may not exist
-/// at all.
-/// Otherwise, these properties will not be replaced at all when they are missing, which
-/// leads to a placeholder string that is considered "non-empty" and returned.
-///
-/// If all arguments are empty, then firstNonEmpty() will not be resolved at all.
-/// To avoid that, add a fallback value to the end:
-/// ```yaml
-///     release-version: "${fn.firstNonEmpty(${git.tags:}, ${git.commit.id.abbrev:}, unknown)}"
-/// ```
-/// In the example above, "unknown" is returned if no further suitable release version can be resolved.
+/// @see #functions
+/// @see ConfigFunction
 public class FunctionsPropertySource extends PropertySource<Object> {
 
     /// Name of the [PropertySource].
