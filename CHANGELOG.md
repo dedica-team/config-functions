@@ -1,6 +1,6 @@
 # Changelog
 
-## Upcoming: 0.1.1
+## Upcoming: 1.1.0
 
 Development
 - Refactoring: Introduced `ConfigFunction` interface as a mechanism to simplify adding new functions ([#10](https://github.com/dedica-team/config-functions/pull/10))
