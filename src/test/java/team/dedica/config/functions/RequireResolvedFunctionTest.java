@@ -1,11 +1,13 @@
 package team.dedica.config.functions;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@DisplayName("requireResolved()")
 class RequireResolvedFunctionTest {
 
     /// Used to test [RequireResolvedFunction].
