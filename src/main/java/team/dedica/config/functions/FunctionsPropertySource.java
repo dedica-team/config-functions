@@ -4,12 +4,12 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import org.springframework.core.env.PropertySource;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 /// Adds support for simple calls to prepared functions in application.yaml configuration files.
 ///
@@ -78,9 +78,19 @@ public class FunctionsPropertySource extends PropertySource<Object> {
     /// The value is a lambda function that receives the argument line and returns the result
     /// of the function call.
     @Nonnull
-    private final Map<String, Function<String, Object>> functions = Map.of(
-        "firstNonEmpty", this::firstNonEmpty
+    private final Map<String, ConfigFunction> functions = register(
+        new FirstNonEmptyFunction()
     );
+
+    /// Makes the given [config functions][ConfigFunction] available.
+    @Nonnull
+    private static Map<String, ConfigFunction> register(@Nonnull final ConfigFunction... functions) {
+        return Arrays.stream(functions)
+            .collect(Collectors.toUnmodifiableMap(
+                ConfigFunction::name,
+                function -> function
+            ));
+    }
 
     /// Creates the source with the default name ([#FUNCTIONS_PROPERTY_SOURCE_NAME]).
     public FunctionsPropertySource() {
@@ -133,15 +143,6 @@ public class FunctionsPropertySource extends PropertySource<Object> {
         }
 
         final String arguments = matcher.group(GROUP_ARGUMENTS);
-        return functions.get(functionName).apply(arguments);
-    }
-
-    @Nullable
-    private String firstNonEmpty(@Nonnull final String arguments) {
-        return Stream.of(arguments.split(","))
-            .map(String::trim)
-            .filter(argument -> !argument.isBlank())
-            .findFirst()
-            .orElse(null);
+        return functions.get(functionName).call(arguments);
     }
 }
