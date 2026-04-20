@@ -38,14 +38,14 @@ class RequireResolvedFunctionTest {
 
     @Test
     void throwsExceptionIfSingleVariableIsUnresolved() {
-        assertThatExceptionOfType(IllegalArgumentException.class)
+        assertThatExceptionOfType(RequireResolvedFunction.UnresolvedVariableException.class)
             .isThrownBy(() -> functionsPropertySource.getProperty("fn.requireResolved(${DB_PASSWORD})"))
             .withMessageContaining("${DB_PASSWORD}");
     }
 
     @Test
     void throwsExceptionIfMultipleVariablesAreUnresolved() {
-        assertThatExceptionOfType(IllegalArgumentException.class)
+        assertThatExceptionOfType(RequireResolvedFunction.UnresolvedVariableException.class)
             .isThrownBy(() -> functionsPropertySource.getProperty("fn.requireResolved(jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME})"))
             .withMessageContaining("${DB_HOST}")
             .withMessageContaining("${DB_PORT}")
@@ -54,7 +54,7 @@ class RequireResolvedFunctionTest {
 
     @Test
     void throwsExceptionIfOnlySomeVariablesAreUnresolved() {
-        assertThatExceptionOfType(IllegalArgumentException.class)
+        assertThatExceptionOfType(RequireResolvedFunction.UnresolvedVariableException.class)
             .isThrownBy(() -> functionsPropertySource.getProperty("fn.requireResolved(jdbc:postgresql://localhost:5432/${DB_NAME})"))
             .withMessageContaining("${DB_NAME}");
     }

@@ -42,11 +42,17 @@ class RequireResolvedFunction implements ConfigFunction {
             .toList();
 
         if (!unresolvedPlaceholders.isEmpty()) {
-            throw new IllegalArgumentException(
-                "The following variables have not been resolved: " + String.join(", ", unresolvedPlaceholders)
-            );
+            throw new UnresolvedVariableException(unresolvedPlaceholders);
         }
 
         return argumentLine;
+    }
+
+    /// Used when an unresolved variable is detected.
+    public static class UnresolvedVariableException extends IllegalArgumentException {
+
+        public UnresolvedVariableException(@Nonnull final List<String> unresolvedVariables) {
+            super("The following variables have not been resolved: " + String.join(", ", unresolvedVariables));
+        }
     }
 }
