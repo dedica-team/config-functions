@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ConfigFunctionTest {
 
-    @DisplayName("firstNonEmpty([...])")
+    @DisplayName("name()")
     @Nested
     class NameTests {
 
