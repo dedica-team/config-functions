@@ -51,7 +51,7 @@ public class FunctionsPropertySource extends PropertySource<Object> {
     /// Contains all supported functions.
     ///
     /// The key is the name of the function (without prefix) that can be used in the config file.
-    /// The value is a lambda function that receives the argument line and returns the result
+    /// The value is a [ConfigFunction] that receives the argument line and returns the result
     /// of the function call.
     @Nonnull
     private final Map<String, ConfigFunction> functions = register(
