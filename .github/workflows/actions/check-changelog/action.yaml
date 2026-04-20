@@ -18,7 +18,7 @@ runs:
     # Details: https://github.com/marketplace/actions/changed-files
     - name: 'Get changed files'
       id: 'changed-files'
-      uses: 'tj-actions/changed-files@v47.0.5'
+      uses: 'tj-actions/changed-files@v47.0.6'
       with:
         files_yaml: |
           changelog:
