@@ -7,6 +7,7 @@ import org.springframework.core.env.PropertySource;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -63,7 +64,7 @@ public class FunctionsPropertySource extends PropertySource<Object> {
         return Arrays.stream(functions)
             .collect(Collectors.toUnmodifiableMap(
                 ConfigFunction::name,
-                function -> function
+                Function.identity()
             ));
     }
 
