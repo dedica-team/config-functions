@@ -1,6 +1,9 @@
 # Changelog
 
-## Upcoming: 0.2.0
+## Upcoming: 0.1.1
+
+
+## 1.0.0 (2026-04-20)
 
 Development
 - Automated release process ([#7](https://github.com/dedica-team/config-functions/pull/7))
