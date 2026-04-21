@@ -34,6 +34,7 @@ You can pass other Spring properties as arguments:
 my-property: "${fn.functionName(${spring.application.name})}"
 ```
 
+
 ## Available Functions
 
 ### `firstNonEmpty`
@@ -56,7 +57,7 @@ In this example, the release version is resolved from the following sources in o
 2. The abbreviated commit hash (if available)
 3. The literal string `unknown`
 
-### Important: Define fallback values for optional properties
+#### Important: Define fallback values for optional properties
 
 Always use the `:` suffix for properties that may not exist:
 
@@ -69,10 +70,35 @@ Always use the `:` suffix for properties that may not exist:
 "${fn.firstNonEmpty(${my.optional.property}, fallback)}"
 ```
 
+### `requireResolved`
+
+Checks that all property placeholders in the argument have been resolved.
+If any unresolved placeholders are detected, an exception is thrown at startup.
+
+```yaml
+db-password: "${fn.requireResolved(${DB_PASSWORD})}"
+```
+
+If `DB_PASSWORD` is set, the resolved value is returned. If it is not set, the function will throw an error:
+
+```
+The following variables have not been resolved: ${DB_PASSWORD}
+```
+
+Multiple variables can be checked at once:
+
+```yaml
+jdbc-url: "${fn.requireResolved(jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME})}"
+```
+
+If any of them are unresolved, all unresolved variables are listed in the error message.
+
+
 ## Requirements
 
 - Spring Boot 3.x
 - Java 17+
+
 
 ## License
 

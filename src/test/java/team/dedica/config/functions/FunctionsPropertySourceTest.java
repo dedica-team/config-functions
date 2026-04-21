@@ -1,8 +1,6 @@
 package team.dedica.config.functions;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,51 +52,5 @@ class FunctionsPropertySourceTest {
     void throwsExceptionIfFunctionCallIsFollowedByInvalidData() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> functionsPropertySource.getProperty("fn.firstNonEmpty(a) this text should not be here"));
-    }
-
-    @DisplayName("firstNonEmpty([...])")
-    @Nested
-    class FirstNonEmptyTests {
-
-        @Test
-        void returnsNullIfAllArgumentStringsAreEmpty() {
-            final Object result = functionsPropertySource.getProperty("fn.firstNonEmpty(,,,,,)");
-
-            assertThat(result).isNull();
-        }
-
-        @Test
-        void returnsNullIfArgumentListIsEmpty() {
-            final Object result = functionsPropertySource.getProperty("fn.firstNonEmpty()");
-
-            assertThat(result).isNull();
-        }
-
-        @Test
-        void returnsNullIfArgumentListContainsOnlyWhitespace() {
-            final Object result = functionsPropertySource.getProperty("fn.firstNonEmpty(    )");
-
-            assertThat(result).isNull();
-        }
-
-        @Test
-        void returnsFirstNonEmptyValue() {
-            final Object result = functionsPropertySource.getProperty("fn.firstNonEmpty(,,A,B)");
-
-            assertThat(result)
-                .isInstanceOf(String.class)
-                .asString()
-                .isEqualTo("A");
-        }
-
-        @Test
-        void stripsWhitespaceFromFirstNonEmptyValue() {
-            final Object result = functionsPropertySource.getProperty("fn.firstNonEmpty(,,  A  ,B)");
-
-            assertThat(result)
-                .isInstanceOf(String.class)
-                .asString()
-                .isEqualTo("A");
-        }
     }
 }

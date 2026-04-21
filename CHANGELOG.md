@@ -2,6 +2,9 @@
 
 ## Upcoming: 1.1.0
 
+Features
+- Introduced function `requireResolved()`, which fails early if an environment variable reference could not be resolved ([#12](https://github.com/dedica-team/config-functions/pull/12))
+
 Development
 - Refactoring: Introduced `ConfigFunction` interface as a mechanism to simplify adding new functions ([#10](https://github.com/dedica-team/config-functions/pull/10))
 
