@@ -56,7 +56,7 @@ In this example, the release version is resolved from the following sources in o
 2. The abbreviated commit hash (if available)
 3. The literal string `unknown`
 
-### Important: Define fallback values for optional properties
+#### Important: Define fallback values for optional properties
 
 Always use the `:` suffix for properties that may not exist:
 
