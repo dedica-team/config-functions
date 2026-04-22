@@ -1,6 +1,9 @@
 # Changelog
 
-## Upcoming: 1.1.0
+## Upcoming: 1.2.0
+
+
+## 1.1.0 (2026-04-22)
 
 Features
 - Introduced function `requireResolved()`, which fails early if an environment variable reference could not be resolved ([#12](https://github.com/dedica-team/config-functions/pull/12))
