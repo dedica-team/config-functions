@@ -93,6 +93,15 @@ jdbc-url: "${fn.requireResolved(jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAM
 
 If any of them are unresolved, all unresolved variables are listed in the error message.
 
+### `urlEncode`
+
+Encodes the argument for safe use in URLs.
+This is useful, when composing URLs from properties that may contain special characters
+such as `@`, `#`, or `%`:
+
+```yaml
+jdbc-url: "jdbc:postgresql://user:${fn.urlEncode(${DB_PASSWORD})}@localhost:5432/mydb"
+```
 
 ## Requirements
 
