@@ -93,6 +93,17 @@ jdbc-url: "${fn.requireResolved(jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAM
 
 If any of them are unresolved, all unresolved variables are listed in the error message.
 
+### `base64Decode`
+
+Decodes a Base64-encoded argument and returns the result as string.
+
+This is useful, when configuration values are passed as Base64-encoded strings,
+for example SSL certificates or keys provided via environment variables:
+
+```yaml
+ssl-certificate: "${fn.base64Decode(${SSL_CERT_BASE64})}"
+```
+
 ### `urlEncode`
 
 Encodes the argument for safe use in URLs.
