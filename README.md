@@ -1,6 +1,6 @@
 # Spring Boot Config Functions
 
-Call functions directly in your Spring Boot `application.yaml`.
+Call functions directly in your Spring Boot `application.yaml`:
 
 ```yaml
 release-version: "${fn.firstNonEmpty(${git.tags:}, ${git.commit.id.abbrev:}, unknown)}"
