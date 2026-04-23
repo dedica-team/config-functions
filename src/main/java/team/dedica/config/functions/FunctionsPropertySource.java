@@ -55,6 +55,7 @@ public class FunctionsPropertySource extends PropertySource<Object> {
     /// of the function call.
     @Nonnull
     private final Map<String, ConfigFunction> functions = register(
+        new Base64DecodeFunction(),
         new FirstNonEmptyFunction(),
         new RequireResolvedFunction(),
         new UrlEncodeFunction()
