@@ -2,6 +2,8 @@
 
 ## Upcoming: 1.2.0
 
+Features
+- Introduced function `base64Decode()`, which decodes a Base64-encoded configuration value ([#16](https://github.com/dedica-team/config-functions/pull/16))
 
 ## 1.1.0 (2026-04-22)
 
