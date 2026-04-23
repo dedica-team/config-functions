@@ -5,6 +5,9 @@
 Features
 - Introduced function `base64Decode()`, which decodes a Base64-encoded configuration value ([#16](https://github.com/dedica-team/config-functions/pull/16))
 
+Dependency Updates
+- Spring Boot Dependencies `3.5.13` → `3.5.14`
+
 ## 1.1.0 (2026-04-22)
 
 Features
