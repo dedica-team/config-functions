@@ -22,15 +22,16 @@
     // - https://github.com/renovatebot/renovate/discussions/18835
     {
       "customType": "regex",
+      "description": "Updates Java versions in .sdkmanrc files.",
       "managerFilePatterns": [
         "/^\\.sdkmanrc$/"
       ],
       "matchStrings": [
         "java=(?<currentValue>\\d+\\.\\d+\\.\\d+)(?<suffix>-.*)\\n"
       ],
-      "autoReplaceStringTemplate": "java={{{newValue}}}{{{suffix}}}\n",
       "datasourceTemplate": "java-version",
       "depNameTemplate": "java",
+      // Remove suffix (if it exists) from new version.
       "extractVersionTemplate": "^(?<version>\\d+\\.\\d+\\.\\d+)"
     },
 
