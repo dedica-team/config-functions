@@ -50,7 +50,7 @@
 
     <spring-boot.version>3.5.14</spring-boot.version>
 
-    <!-- Fallback for Surefire argument line. May be modified by plugins. -->
+    <!-- Fallback for Surefire argument line. May be modified by plugins (e.g. Jacoco). -->
     <argLine />
   </properties>
 
