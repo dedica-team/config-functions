@@ -123,12 +123,13 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.5.5</version>
         <configuration>
+          <!-- @{argLine}: Keep arguments provided by other plugins etc. -->
           <!--
             -Xshare:off: Avoid the following warning when running tests:
             > OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
             -->
           <!-- -javaagent: Attach Mockito as an agent to avoid warnings during build time.-->
-          <argLine>-Xshare:off -javaagent:${org.mockito:mockito-core:jar}</argLine>
+          <argLine>@{argLine} -Xshare:off -javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
       </plugin>
 
