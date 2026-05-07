@@ -72,6 +72,22 @@ class Base64DecodeFunctionTest {
     }
 
     @Test
+    void worksWithLongEncodedStringsWithoutNewlines() {
+        final String longInput = "abc".repeat(200);
+        final String encoded = Base64.getEncoder().encodeToString(longInput.getBytes(StandardCharsets.UTF_8));
+        assertThat(encoded)
+            .as("Precondition failed: Test input should not contain newlines.")
+            .doesNotContain("\n");
+
+        final Object result = functionsPropertySource.getProperty("fn.base64Decode(" + encoded + ")");
+
+        assertThat(result)
+            .isInstanceOf(String.class)
+            .asString()
+            .isEqualTo(longInput);
+    }
+
+    @Test
     void throwsExceptionForInvalidBase64() {
         assertThatExceptionOfType(Base64DecodeFunction.Base64DecodingException.class)
             .isThrownBy(() -> functionsPropertySource.getProperty("fn.base64Decode(invalid base64!!!)"));
