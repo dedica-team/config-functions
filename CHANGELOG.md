@@ -2,6 +2,11 @@
 
 ## Upcoming: 1.3.0
 
+Features
+
+Development
+
+Dependency Updates
 
 ## 1.2.0 (2026-05-07)
 
