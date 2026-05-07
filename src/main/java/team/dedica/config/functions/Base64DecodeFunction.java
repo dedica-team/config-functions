@@ -20,7 +20,7 @@ class Base64DecodeFunction implements ConfigFunction {
     @Override
     public String call(@Nonnull final String argumentLine) {
         try {
-            return new String(Base64.getDecoder().decode(argumentLine), StandardCharsets.UTF_8);
+            return new String(Base64.getMimeDecoder().decode(argumentLine), StandardCharsets.UTF_8);
         } catch (Exception e) {
             throw new Base64DecodingException(argumentLine, e);
         }
