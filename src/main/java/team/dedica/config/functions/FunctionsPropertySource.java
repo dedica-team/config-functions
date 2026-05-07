@@ -44,7 +44,11 @@ public class FunctionsPropertySource extends PropertySource<Object> {
     private static final String GROUP_ARGUMENTS = "arguments";
 
     /// Used to match function calls and extract relevant data.
-    private static final Pattern FUNCTION_CALL_PATTERN = Pattern.compile(Pattern.quote(PREFIX) + "(?<" + GROUP_NAME + ">[a-zA-Z0-9]+)\\((?<" + GROUP_ARGUMENTS + ">.*)\\)");
+    private static final Pattern FUNCTION_CALL_PATTERN = Pattern.compile(
+        Pattern.quote(PREFIX) + "(?<" + GROUP_NAME + ">[a-zA-Z0-9]+)\\((?<" + GROUP_ARGUMENTS + ">.*)\\)",
+        // The "." also accepts newlines, which allows multiline arguments, e.g. for base64 encoded values.
+        Pattern.DOTALL
+    );
 
     private static final String FUNCTION_CALL_EXAMPLE = PREFIX + "functionName(my arguments)";
 
