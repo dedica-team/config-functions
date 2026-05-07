@@ -10,6 +10,7 @@ Features
 
 Dependency Updates
 - Spring Boot Dependencies `3.5.13` → `3.5.14`
+- JReleaser (library publishing process) `1.23.0` → `1.24.0`
 
 ## 1.1.0 (2026-04-22)
 
