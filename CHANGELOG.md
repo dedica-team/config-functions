@@ -5,6 +5,7 @@
 Features
 
 Development
+- Security: Pin references to Docker images and GitHub Actions
 
 Dependency Updates
 

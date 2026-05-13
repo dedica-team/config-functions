@@ -3,7 +3,11 @@
   "extends": [
     "config:recommended",
     // No commits like "chore(deps): [...]"
-    ":semanticCommitsDisabled"
+    ":semanticCommitsDisabled",
+    // Use hashes as references to GitHub actions as tags could be changed after release.
+    "helpers:pinGitHubActionDigests",
+    // Use hashes as references to Docker Images as tags could be changed after release.
+    "docker:pinDigests"
   ],
 
   // Do not limit the number of dependency update Pull Requests.
