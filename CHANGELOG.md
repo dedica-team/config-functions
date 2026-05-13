@@ -5,7 +5,7 @@
 Features
 
 Development
-- Security: Pin references to Docker images and GitHub Actions
+- Security: Pin references to Docker images and GitHub Actions ([#21](https://github.com/dedica-team/config-functions/pull/21))
 
 Dependency Updates
 
