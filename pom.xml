@@ -48,7 +48,7 @@
       -->
     <revision>0.0.1-SNAPSHOT</revision>
 
-    <spring-boot.version>3.5.14</spring-boot.version>
+    <spring-boot.version>3.5.16</spring-boot.version>
 
     <!-- Fallback for Surefire argument line. May be modified by plugins (e.g. Jacoco). -->
     <argLine />
